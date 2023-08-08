@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "HW4";
+}
+
+<h1>HW4</h1>
+
+<select id="citySelect">
+</select>
+<hr/>
+<span id="selectedCity"></span>
+
+
+@section Scripts{
+    <script>
+        const cities = ["台北市", "新北市", "桃園市", "台中市", "台南市", "高雄市"];
+        const citySelect = document.getElementById("citySelect");
+        const displayCity = document.getElementById("selectedCity");
+
+        cities.forEach(city => {
+            const option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+
+        citySelect.addEventListener("change", function () {
+            const selectedCity = citySelect.value;
+            displayCity.textContent = selectedCity;
+        });
+    </script>
+}
