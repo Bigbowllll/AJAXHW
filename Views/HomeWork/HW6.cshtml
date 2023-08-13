@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "HW6";
+}
+
+<h1>HW6</h1>
+<h3>用fetch() 加上 async await 來完成住址連動的功能</h3>
+
+<h1>Address</h1>
+<select id="selectCity"></select>
+<select id="selectDistrict"></select>
+<select id="selectRoad"></select>
+<div id="div1" class="alert alert-info"></div>
+
+@section Scripts{
+    <script>
+        const selCity = document.querySelector('#selectCity');
+        const selDistrict = document.querySelector('#selectDistrict');
+        const selRoad = document.querySelector('#selectRoad');
+        const div = document.querySelector('#div1');
+
+
+        async function loadCity(){
+            const response = await fetch('@Url.Content("/api/cities")')
+            const data = await response.json()
+            const lis = data.map(city=> `<option value='${city}'>${city}</option>`)
+            selCity.innerHTML=lis.join("");
+            loadDistrict();
+            show();
+        }
+
+        loadCity();
+
+        async function loadDistrict() {
+            const response = await fetch(`@Url.Content("/api/districts")?city=${selCity.value}`)
+            const data = await response.json()
+            const lis = data.map(district => `<option value='${district}'>${district}</option>`)
+            selDistrict.innerHTML = lis.join("");
+            loadRoad();
+            show();
+        }
+
+        async function loadRoad() {
+            const response = await fetch(`@Url.Content("/api/roads")?siteid=${selDistrict.value}`)
+            const data = await response.json()
+            const lis = data.map(road => `<option value='${road}'>${road}</option>`)
+            selRoad.innerHTML = lis.join("");
+            show();
+        }
+
+        selCity.addEventListener('change', () => {
+            loadDistrict();
+            show();
+        })
+
+        selDistrict.addEventListener('change', () => {
+            loadRoad();
+            show();
+        })
+
+        selRoad.addEventListener('change', show)
+
+        function show() {
+            div.textContent = `${selDistrict.value}  ${selRoad.value}`;
+        }
+
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "jQuery";
+}
+
+<h1>jQuery</h1>
+<button id="buttonGet" class="btn btn-primary">get</button>
+<button id="buttonPost" class="btn btn-secondary">post</button>
+<button id="buttonJson" class="btn btn-success">getJson</button>
+<button id="buttonLoad" class="btn btn-info">load</button>
+<button id="buttonAjax" class="btn btn-warning">ajax</button>
+<button id="buttonCors" class="btn btn-danger">cors</button>
+<div class="alert alert-dark mt-3 w-50" role="alert" id="divAlert">
+    <ul></ul>
+</div>
+@section Scripts{
+    <script>
+        $('#buttonGet').click(function () {
+            $.get('@Url.Content("~/api/getdemo")',{"name":"Tom","age":38}
+            ,function(data){
+            $('#divAlert').text(data)
+            })
+        })
+        $('#buttonPost').click(function () {
+            $.post('@Url.Content("~/api/getdemo")', { "name": "Tommy", "age": 26 }
+                , function (data) {
+                    $('#divAlert').text(data)
+                })
+        })
+        $('#buttonJson').click(function () {
+            $.getJSON('@Url.Content("~/api/cities")',function(datas){
+                const theUI = $('#divAlert>ul');
+                const docFog = $(document.createDocumentFragment())
+                $.each(datas,function(idx,city){
+                    const item = $('<li></li>').text(city)
+                    docFog.append(item)
+                })
+                theUI.html(docFog);
+            })
+        })
+
+        //$('#buttonJson').click(function () {
+        //    $.getJSON('@Url.Content("~/api/Districts")',{"city":"宜蘭縣"}, function (datas) {
+        //         const theUI = $('#divAlert>ul');
+        //         const docFog = $(document.createDocumentFragment())
+        //        $.each(datas, function (idx, city) {
+        //            const item = $('<li></li>').text(city)
+        //            docFog.append(item)
+        //        })
+        //        theUI.html(docFog);
+        //    })
+        //})
+
+        $('#buttonLoad').click(function () {
+            $('#divAlert').load('@Url.Content("/home/partial2")')
+        })
+
+        $('#buttonAjax').click(function () {
+            $.ajax({
+                'url': '@Url.Content("~/api/cities")',
+                'type': 'GET',
+                'dataType':'json'
+            })
+                .done(function(data){
+                    const theUI = $('#divAlert>ul');
+                const docFog = $(document.createDocumentFragment())
+                $.each(data, function (idx, city) {
+                    const item = $('<li></li>').text(city)
+                    docFog.append(item)
+                })
+                theUI.html(docFog)
+            })
+            //$('#divAlert').text("AJAX")
+        })
+        $('#buttonCors').click(function () {
+            $.getJSON('@Url.Content("https://localhost:7056/api/Shippers")',function(data){
+                console.log(data);
+            })
+            
+        })
+
+    </script>
+}

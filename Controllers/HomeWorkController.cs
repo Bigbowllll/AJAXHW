@@ -24,5 +24,16 @@ namespace MSIT150Site.Controllers
             return View();
         }
 
+        public IActionResult HW5()
+        {
+            return View();
+        }
+
+        public IActionResult HW6()
+        {
+            return View();
+        }
+
+
     }
 }

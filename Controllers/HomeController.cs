@@ -33,12 +33,46 @@ namespace MSIT150Site.Controllers
         {
             return View();
         }
+        public IActionResult Address()
+        {
+            return View();
+        }
 
-      
+        public IActionResult Promise()
+        {
+            return View();
+        }
+
+        public IActionResult Fetch()
+        {
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult History()
+        {
+            return View();
+        }
+
+        public IActionResult jQuery()
+        {
+            return View();
+        }
+
+        public IActionResult Partial1()
+        {
+            return PartialView();
+        }
+
+        public IActionResult Partial2()
+        {
+            ViewBag.Message = "來自Action的內容";
+            return PartialView();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

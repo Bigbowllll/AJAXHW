@@ -62,7 +62,11 @@
             //myDiv.innerHTML = "Button Click"
 
             //Step2對伺服器發出要求(request)
-            xhr.open('GET','/api/index');
+            //xhr.open('GET','/api/index');  //開發時不會錯，佈署到伺服器可能會出錯
+            
+            //建議用下面兩種方法
+            //xhr.open('GET','@Url.Action("index","api")')
+            xhr.open('GET','@Url.Content("/api/index")')
             xhr.timeout=3000;
             xhr.send();
 

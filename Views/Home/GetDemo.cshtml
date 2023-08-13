@@ -12,7 +12,10 @@
             const xhr = new XMLHttpRequest();
             
             //步驟二對伺服器發出要求
-            xhr.open('GET','/api/GetDemo?name=Amy&age=34');
+            //xhr.open('GET','/api/GetDemo?name=Amy&age=34');
+
+        //xhr.open('GET', '@Url.Content("/api/GetDemo")?name=Amy&age=34')  //傳參數要放在方法外面
+        xhr.open('GET', `@Url.Content("/api/GetDemo")?name=${name}&age=${age}`)  //用`包起來`
             xhr.send();
 
             //步驟三接收伺服器回傳的結果

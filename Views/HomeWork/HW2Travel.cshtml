@@ -4,20 +4,43 @@
 }
 
 <h1>作業二 引用 datas/Travel.js 中的JSON，讀取資料後，透過 bootstrap cards component 顯示在網頁上</h1>
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+
+<div id="div1" class="container">
+    <div class="row">
     </div>
 </div>
 
 @section Scripts{
     <script src="~/datas/travel.js"></script>
     <script>
-        const data = spots.CommonFormat.Section;
-        console.log(data);
+        //const data = spots.CommonFormat.Section;
+        //console.log(data);
+
+        const view = spots.CommonFormat.Section.map(element => {
+            const { stitle, xbody, file } = element;
+            if (file.img.length > 1) {
+                return (
+                    `<div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="${file.img[0].text}">
+                                   <div class="card-body">
+                                      <p class="card-text">${stitle}<br>${xbody}</p>
+                                    </div>
+                             </div>`
+                );
+            }
+            else {
+                return (
+                    `<div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="${file.img.text}">
+                                   <div class="card-body">
+                                     <p class="card-text">${stitle}<br>${xbody}</p>
+                                   </div>
+                             </div>`
+                );
+            }
+        });
+        document.querySelector("#div1>.row").innerHTML = view.join("");
+
 
     </script>
 }
