@@ -34,6 +34,9 @@ namespace MSIT150Site.Controllers
             return View();
         }
 
-
+        public IActionResult HW7()
+        {
+            return View();
+        }
     }
 }
